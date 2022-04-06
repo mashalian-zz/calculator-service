@@ -1,4 +1,4 @@
-# How to run bundle-service
+# How to run calculator-service
 1.Navigate to root of project.
 
 2.Build the project(mvn clean install)
