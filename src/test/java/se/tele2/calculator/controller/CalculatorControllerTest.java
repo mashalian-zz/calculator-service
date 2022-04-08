@@ -46,7 +46,7 @@ class CalculatorControllerTest {
     @Test
     void shouldCalculateAdditionSuccessfully() throws Exception {
         InputRequest request = new InputRequest(List.of(10.0, 20.0));
-        given(service.addition(eq(request))).willReturn(new ResultResponse(30.0));
+        given(service.calculate(eq(request), eq(Operation.ADDITION))).willReturn(new ResultResponse(30.0));
 
         mockMvc.perform(post("/addition")
                         .content(objectMapper.writeValueAsString(request))
@@ -58,7 +58,7 @@ class CalculatorControllerTest {
     @Test
     void shouldCalculateSubtractionSuccessfully() throws Exception {
         InputRequest request = new InputRequest(List.of(20.0, 10.0));
-        given(service.subtraction(eq(request))).willReturn(new ResultResponse(10.0));
+        given(service.calculate(eq(request), eq(Operation.SUBTRACTION))).willReturn(new ResultResponse(10.0));
 
         mockMvc.perform(post("/subtraction")
                         .content(objectMapper.writeValueAsString(request))
@@ -70,7 +70,7 @@ class CalculatorControllerTest {
     @Test
     void shouldCalculateMultiplicationSuccessfully() throws Exception {
         InputRequest request = new InputRequest(List.of(2.0, 3.0));
-        given(service.multiplication(eq(request))).willReturn(new ResultResponse(6.0));
+        given(service.calculate(eq(request), eq(Operation.MULTIPLICATION))).willReturn(new ResultResponse(6.0));
 
         mockMvc.perform(post("/multiplication")
                         .content(objectMapper.writeValueAsString(request))
@@ -82,7 +82,7 @@ class CalculatorControllerTest {
     @Test
     void shouldCalculateDivisionSuccessfully() throws Exception {
         InputRequest request = new InputRequest(List.of(10.0, 2.0));
-        given(service.division(eq(request))).willReturn(new ResultResponse(5.0));
+        given(service.calculate(eq(request), eq(Operation.DIVISION))).willReturn(new ResultResponse(5.0));
 
         mockMvc.perform(post("/division")
                         .content(objectMapper.writeValueAsString(request))
@@ -94,7 +94,7 @@ class CalculatorControllerTest {
     @Test
     void shouldResponse403WhenDivisorIsZeroInDivision() throws Exception {
         InputRequest request = new InputRequest(List.of(10.0, 0.0));
-        given(service.division(eq(request))).willThrow(new ArithmeticException("Divide by zero."));
+        given(service.calculate(eq(request), eq(Operation.DIVISION))).willThrow(new ArithmeticException("Divide by zero."));
 
         mockMvc.perform(post("/division")
                         .content(objectMapper.writeValueAsString(request))
@@ -107,7 +107,7 @@ class CalculatorControllerTest {
     @Test
     void shouldResponse403WhenInputIsEmpty() throws Exception {
         InputRequest request = new InputRequest(List.of());
-        given(service.division(eq(request))).willThrow(new EmptyInputsException("No number to do the operation"));
+        given(service.calculate(eq(request), eq(Operation.DIVISION))).willThrow(new EmptyInputsException("No number to do the operation"));
 
         mockMvc.perform(post("/division")
                         .content(objectMapper.writeValueAsString(request))

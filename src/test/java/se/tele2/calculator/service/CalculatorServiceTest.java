@@ -58,7 +58,7 @@ class CalculatorServiceTest {
         Result result = getResultWithTestData(ADDITION, 60.0, numbers);
         given(dataStore.save(any())).willReturn(result);
         InputRequest inputRequest = new InputRequest(List.of(10.0, 20.0, 30.0));
-        ResultResponse response = service.addition(inputRequest);
+        ResultResponse response = service.calculate(inputRequest, ADDITION);
 
         assertThat(response).isNotNull();
         assertThat(response.result().doubleValue()).isEqualTo(60.0);
@@ -77,7 +77,7 @@ class CalculatorServiceTest {
         given(dataStore.findByNumbersAndOperation(anyString(), any())).willReturn(Optional.of(getResultWithTestData(ADDITION, 60.0, numbers)));
 
         InputRequest inputRequest = new InputRequest(List.of(10.0, 20.0, 30.0));
-        ResultResponse response = service.addition(inputRequest);
+        ResultResponse response = service.calculate(inputRequest, ADDITION);
 
         assertThat(response).isNotNull();
         assertThat(response.result().doubleValue()).isEqualTo(60.0);
@@ -89,7 +89,7 @@ class CalculatorServiceTest {
         InputRequest inputRequest = new InputRequest(List.of());
 
         assertThatExceptionOfType(EmptyInputsException.class)
-                .isThrownBy(() -> service.addition(inputRequest))
+                .isThrownBy(() -> service.calculate(inputRequest, ADDITION))
                 .withMessage("No number to do the operation");
     }
 
@@ -100,7 +100,7 @@ class CalculatorServiceTest {
         Result result = getResultWithTestData(SUBTRACTION, -40.0, numbers);
         given(dataStore.save(any())).willReturn(result);
         InputRequest inputRequest = new InputRequest(List.of(10.0, 20.0, 30.0));
-        ResultResponse response = service.subtraction(inputRequest);
+        ResultResponse response = service.calculate(inputRequest, SUBTRACTION);
 
         assertThat(response).isNotNull();
         assertThat(response.result().doubleValue()).isEqualTo(-40.0);
@@ -120,7 +120,7 @@ class CalculatorServiceTest {
         given(dataStore.findByNumbersAndOperation(anyString(), any())).willReturn(Optional.of(getResultWithTestData(SUBTRACTION, -40.0, numbers)));
 
         InputRequest inputRequest = new InputRequest(List.of(10.0, 20.0, 30.0));
-        ResultResponse response = service.subtraction(inputRequest);
+        ResultResponse response = service.calculate(inputRequest, SUBTRACTION);
 
         assertThat(response).isNotNull();
         assertThat(response.result().doubleValue()).isEqualTo(-40.0);
@@ -132,7 +132,7 @@ class CalculatorServiceTest {
         InputRequest inputRequest = new InputRequest(List.of());
 
         assertThatExceptionOfType(EmptyInputsException.class)
-                .isThrownBy(() -> service.subtraction(inputRequest))
+                .isThrownBy(() -> service.calculate(inputRequest, SUBTRACTION))
                 .withMessage("No number to do the operation");
     }
 
@@ -143,7 +143,7 @@ class CalculatorServiceTest {
         Result result = getResultWithTestData(MULTIPLICATION, 24.0, numbers);
         given(dataStore.save(any())).willReturn(result);
         InputRequest inputRequest = new InputRequest(List.of(2.0, 3.0, 4.0));
-        ResultResponse response = service.multiplication(inputRequest);
+        ResultResponse response = service.calculate(inputRequest, MULTIPLICATION);
 
         assertThat(response).isNotNull();
         assertThat(response.result().doubleValue()).isEqualTo(24.0);
@@ -162,7 +162,7 @@ class CalculatorServiceTest {
         given(dataStore.findByNumbersAndOperation(anyString(), any())).willReturn(Optional.of(getResultWithTestData(MULTIPLICATION, 24.0, numbers)));
 
         InputRequest inputRequest = new InputRequest(List.of(2.0, 3.0, 4.0));
-        ResultResponse response = service.multiplication(inputRequest);
+        ResultResponse response = service.calculate(inputRequest, MULTIPLICATION);
 
         assertThat(response).isNotNull();
         assertThat(response.result().doubleValue()).isEqualTo(24.0);
@@ -174,7 +174,7 @@ class CalculatorServiceTest {
         InputRequest inputRequest = new InputRequest(List.of());
 
         assertThatExceptionOfType(EmptyInputsException.class)
-                .isThrownBy(() -> service.multiplication(inputRequest))
+                .isThrownBy(() -> service.calculate(inputRequest, MULTIPLICATION))
                 .withMessage("No number to do the operation");
     }
 
@@ -185,7 +185,7 @@ class CalculatorServiceTest {
         Result result = getResultWithTestData(DIVISION, 5.0, numbers);
         given(dataStore.save(any())).willReturn(result);
         InputRequest inputRequest = new InputRequest(List.of(30.0, 2.0, 3.0));
-        ResultResponse response = service.division(inputRequest);
+        ResultResponse response = service.calculate(inputRequest, DIVISION);
 
         assertThat(response).isNotNull();
         assertThat(response.result().doubleValue()).isEqualTo(5.0);
@@ -204,7 +204,7 @@ class CalculatorServiceTest {
         given(dataStore.findByNumbersAndOperation(anyString(), any())).willReturn(Optional.of(getResultWithTestData(DIVISION, 5.0, numbers)));
 
         InputRequest inputRequest = new InputRequest(List.of(30.0, 2.0, 3.0));
-        ResultResponse response = service.division(inputRequest);
+        ResultResponse response = service.calculate(inputRequest, DIVISION);
 
         assertThat(response).isNotNull();
         assertThat(response.result().doubleValue()).isEqualTo(5.0);
@@ -217,7 +217,7 @@ class CalculatorServiceTest {
         given(dataStore.findByNumbersAndOperation(anyString(), any())).willReturn(Optional.empty());
 
         assertThatExceptionOfType(ArithmeticException.class)
-                .isThrownBy(() -> service.division(inputRequest))
+                .isThrownBy(() -> service.calculate(inputRequest, DIVISION))
                 .withMessage("Divide by zero.");
     }
 

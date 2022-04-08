@@ -25,22 +25,22 @@ public class CalculatorController {
 
     @PostMapping("/addition")
     public ResponseEntity<ResultResponse> addition(@Valid @RequestBody InputRequest request) {
-        return ResponseEntity.ok(service.addition(request));
+        return ResponseEntity.ok(service.calculate(request,Operation.ADDITION));
     }
 
     @PostMapping("/subtraction")
     public ResponseEntity<ResultResponse> subtraction(@Valid @RequestBody InputRequest request) {
-        return ResponseEntity.ok(service.subtraction(request));
+        return ResponseEntity.ok(service.calculate(request,Operation.SUBTRACTION));
     }
 
     @PostMapping("/multiplication")
     public ResponseEntity<ResultResponse> multiplication(@Valid @RequestBody InputRequest request) {
-        return ResponseEntity.ok(service.multiplication(request));
+        return ResponseEntity.ok(service.calculate(request,Operation.MULTIPLICATION));
     }
 
     @PostMapping("/division")
     public ResponseEntity<ResultResponse> division(@Valid @RequestBody InputRequest request) {
-        return ResponseEntity.ok(service.division(request));
+        return ResponseEntity.ok(service.calculate(request,Operation.DIVISION));
     }
 
     @GetMapping("/existingresult/{id}")
